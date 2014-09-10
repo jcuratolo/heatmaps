@@ -1,0 +1,41 @@
+<%= form_for(@neighborhood) do |f| %>
+  <% if @neighborhood.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@neighborhood.errors.count, "error") %> prohibited this neighborhood from being saved:</h2>
+
+      <ul>
+      <% @neighborhood.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :RegionName %><br>
+    <%= f.text_field :RegionName %>
+  </div>
+  <div class="field">
+    <%= f.label :City %><br>
+    <%= f.text_field :City %>
+  </div>
+  <div class="field">
+    <%= f.label :State %><br>
+    <%= f.text_field :State %>
+  </div>
+  <div class="field">
+    <%= f.label :Metro %><br>
+    <%= f.text_field :Metro %>
+  </div>
+  <div class="field">
+    <%= f.label :CountryName %><br>
+    <%= f.text_field :CountryName %>
+  </div>
+  <div class="field">
+    <%= f.label :AvgRentPrice %><br>
+    <%= f.text_field :AvgRentPrice %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

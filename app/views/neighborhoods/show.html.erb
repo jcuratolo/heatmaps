@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Regionname:</strong>
+  <%= @neighborhood.RegionName %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @neighborhood.City %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @neighborhood.State %>
+</p>
+
+<p>
+  <strong>Metro:</strong>
+  <%= @neighborhood.Metro %>
+</p>
+
+<p>
+  <strong>Countryname:</strong>
+  <%= @neighborhood.CountryName %>
+</p>
+
+<p>
+  <strong>Avgrentprice:</strong>
+  <%= @neighborhood.AvgRentPrice %>
+</p>
+
+<%= link_to 'Edit', edit_neighborhood_path(@neighborhood) %> |
+<%= link_to 'Back', neighborhoods_path %>
