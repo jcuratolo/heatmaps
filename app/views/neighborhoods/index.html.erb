@@ -7,7 +7,9 @@
       <th>City</th>
       <th>State</th>
       <th>Metro</th>
-      <th>Countryname</th>
+      <th>Countyname</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
       <th>Avgrentprice</th>
       <th></th>
       <th></th>
@@ -22,7 +24,9 @@
         <td><%= neighborhood.City %></td>
         <td><%= neighborhood.State %></td>
         <td><%= neighborhood.Metro %></td>
-        <td><%= neighborhood.CountryName %></td>
+        <td><%= neighborhood.CountyName %></td>
+        <td><%= neighborhood.Latitude %></td>
+        <td><%= neighborhood.Longitude %></td>
         <td><%= neighborhood.AvgRentPrice %></td>
         <td><%= link_to 'Show', neighborhood %></td>
         <td><%= link_to 'Edit', edit_neighborhood_path(neighborhood) %></td>
@@ -35,3 +39,11 @@
 <br>
 
 <%= link_to 'New Neighborhood', new_neighborhood_path %>
+
+
+
+
+
+
+
+
