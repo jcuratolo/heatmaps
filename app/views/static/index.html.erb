@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <title>LA Rental price heatmap</title>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdacxIPLBmGeowW3ICo1quEftRP7DbA2k&libraries=visualization"></script>
-  
+
   <script>
 
   function initialize() {
@@ -14,33 +14,71 @@
     }
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     var markerCoords = [];
-
-    $.getJSON("http://localhost:3000/neighborhoods.json", function(json){
-      json.forEach(function( each,count ) {
-        markerCoords.push({ lat: parseFloat( each.Latitude ), lng: parseFloat( each.Longitude )});
-        //console.log(count);
-        var pointArray = new google.maps.MVCArray(markerCoords);
-        map.setCenter({ lat: parseFloat( each.Latitude ), lng: parseFloat( each.Longitude )});
-        // var marker = new google.maps.Marker({
-        //   map: map, 
-        //   position: { lat: parseFloat( each.Latitude ), lng: parseFloat( each.Longitude )}
-        // });// var marker   
-      });// json.forEach
-      //console.log(markerCoords);
-      var heatmap = new google.maps.visualization.HeatmapLayer({ data: markerCoords });
-    });// $.getJSON
-    console.log("See if these work!");
-    console.log(markerCoords.length);
+    var myData = httpGet("http://localhost:3000/neighborhoods.json");
+    myData = JSON.parse(myData);
+    
+    myData.forEach(function( each,count ) {
+      // Load up an array with object literal lat lng values
+      markerCoords.push({ lat: parseFloat( each.Latitude ),
+        lng: parseFloat( each.Longitude )});
+      map.setCenter (markerCoords[count] );
+      /*
+      var marker = new google.maps.Marker({   
+        map: map, 
+        position: markerCoords[count]
+      });// var marker
+      */
+});// myData.forEach
+ 
+  // Trying to convert myData to the Latlng objects google uses..throws errors 
+  var testData2=[];
+  /*
+  myData.forEach(function(each, count){
+    testData2.push(new google.maps.Latlng(each.Latitude, each.Longitude));
+  });
+  */
+  for (i = 0; i < myData.length; i++){
+    myData[i] = new google.maps.LatLng(myData[i].Latitude, myData[i].Longitude);
   }
 
-  google.maps.event.addDomListener(window, 'load', initialize);
-  </script>
+  console.log(myData);
+
+  // Just to see if the heatmap works at all...it does.
+  var testData = [
+  new google.maps.LatLng(37.782551, -122.445368),
+  new google.maps.LatLng(37.782745, -122.444586),
+  new google.maps.LatLng(37.782842, -122.443688),
+  new google.maps.LatLng(37.782919, -122.442815),
+  new google.maps.LatLng(37.782992, -122.442112),
+  new google.maps.LatLng(37.783100, -122.441461),
+  new google.maps.LatLng(37.783206, -122.440829),
+  new google.maps.LatLng(37.783273, -122.440324),
+  new google.maps.LatLng(37.783316, -122.440023),
+  new google.maps.LatLng(37.783357, -122.439794),
+  new google.maps.LatLng(37.783371, -122.439687)
+  ];
+  map.setCenter (myData[0]);
+
+var heatmap = new google.maps.visualization.HeatmapLayer({ data: myData });
+heatmap.setMap(map);
+}// Initialize
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+function httpGet(targetURL) {
+  var xmlHttp = null;
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open( "GET", targetURL, false );
+  xmlHttp.send( null );
+  return xmlHttp.responseText;
+}
+</script>
 </head>
 <body>
-  <!-- <div id="panel">
-    <input id="address" type="textbox" value="Sydney, NSW">
-    <input type="button" value="Geocode" onclick="codeAddress()">
-  </div> -->
-  <div id="map-canvas"></div>
+<!-- <div id="panel">
+<input id="address" type="textbox" value="Sydney, NSW">
+<input type="button" value="Geocode" onclick="codeAddress()">
+</div> -->
+<div id="map-canvas"></div>
 </body>
 </html>
