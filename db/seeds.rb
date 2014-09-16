@@ -12,7 +12,7 @@ Neighborhood.create!(
 )
 
 puts Neighborhood.last.RegionName
-puts Neighborhood.last.City
+puts Neighborhood.last.City 
 puts Neighborhood.last.State
 puts Neighborhood.last.AvgRentPrice
 puts Neighborhood.last.Latitude

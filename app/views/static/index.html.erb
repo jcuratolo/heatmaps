@@ -2,51 +2,40 @@
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
   <title>LA Rental price heatmap</title>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdacxIPLBmGeowW3ICo1quEftRP7DbA2k&libraries=visualization"></script>
-
+  
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdacxIPLBmGeowW3ICo1quEftRP7DbA2k"></script>
   <script>
-  var map, heatmap, myData;
+  var map, heatmap, myData, myGeoJSON;
   myData = httpGet("http://localhost:3000/neighborhoods.json");
   myData = JSON.parse(myData);
 
   function initialize() {
     var mapCenter = new google.maps.LatLng(-34.397, 150.644);
     var mapOptions = {
-      zoom: 10
-      ,center: mapCenter
-      ,mapTypeId: google.maps.MapTypeId.SATELLITE
+      zoom: 10,
+      center: mapCenter,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
     };
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     var markerCoords = [];
 
+    // Load up an array with object literal lat lng and weight values
     myData.forEach(function( each,count ) {
-// Load up an array with object literal lat lng and weight values
-markerCoords.push({ lat: parseFloat( each.Latitude ),
-  lng: parseFloat( each.Longitude ),
-  weight: parseFloat( each.AvgRentPrice )});
-map.setCenter (markerCoords[count] );
-/*
-var marker = new google.maps.Marker({   
-map: map, 
-position: markerCoords[count]
-});// var marker
-    */
-});// myData.forEach
+      markerCoords.push({ lat: parseFloat( each.Latitude ),
+        lng: parseFloat( each.Longitude ),
+        weight: parseFloat( each.AvgRentPrice )});
+      map.setCenter (markerCoords[count] );
+    });// myData.forEach
 
-// Trying to convert myData to the Latlng objects google uses..throws errors 
-var testData2=[];
-/*
-myData.forEach(function(each, count){
-testData2.push(new google.maps.Latlng(each.Latitude, each.Longitude));
-});
-*/
-for (i = 0; i < myData.length; i++){
-  testData2[i] = {
-    location: new google.maps.LatLng(myData[i].Latitude, myData[i].Longitude), 
-    weight: parseFloat(myData[i].AvgRentPrice)
+    var testData2=[];
+
+  for (i = 0; i < myData.length; i++){
+    testData2[i] = {
+      location: new google.maps.LatLng(myData[i].Latitude, myData[i].Longitude), 
+      weight: parseFloat(myData[i].AvgRentPrice)
   };
-  console.log(myData[i]);
 }
 
 // Just to see if the heatmap works at all...it does.
@@ -63,10 +52,24 @@ new google.maps.LatLng(37.783316, -122.440023),
 new google.maps.LatLng(37.783357, -122.439794),
 new google.maps.LatLng(37.783371, -122.439687)
 ];
-//map.setCenter (myData[0]);
 
+/*
 heatmap = new google.maps.visualization.HeatmapLayer({ data: testData2 });
 heatmap.setMap(map);
+*/
+
+/*
+d3.json("zillow.json", function(error, json) {
+  if (error) return console.warn(error);
+  myGeoJSON = json;
+});
+*/
+map.data.addGeoJson(myGJ);
+var featureStyle = {
+  strokeColor: '#ff3333',
+  strokeWeight: 0
+}
+console.log(myGJ);
 }// Initialize
 
 
