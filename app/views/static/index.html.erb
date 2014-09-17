@@ -10,7 +10,7 @@
 
     myData = httpGet("http://localhost:3000/neighborhoods.json");
     myData = JSON.parse(myData);
-    console.log(myData[0]);
+    //console.log(myData[0]);
 
     function initialize() {
       var mapCenter = new google.maps.LatLng(-34.397, 150.644);
@@ -51,8 +51,12 @@
   map.data.setStyle({map:null,strokeWeight: 0});
   //map.data.setMap(null);
   // This makes the map responsive to the mouse movement
-   map.data.addListener('mouseover', function(event) {
-      map.data.overrideStyle(event.feature, {strokeWeight: 2, strokeColor: 'cyan', zIndex: 0});
+   map.data.addListener('mouseover', function(event){
+      map.data.overrideStyle(event.feature,
+        { strokeWeight: 2, strokeColor: 'cyan', zIndex: 0 });
+      document.getElementById("panel")
+      .textContent = event.feature
+      .getProperty("NAME")+', '+event.feature.getProperty("REGIONID")+' Violent crimes per 10k people';
    });
    map.data.addListener('mouseout', function(event) {
       map.data.overrideStyle(event.feature, {strokeWeight: 0, strokeColor: 'black', zIndex: 0});
@@ -60,23 +64,29 @@
 
 // Set the neighborhood polygon styles appropriately
   map.data.forEach(function(feature) {
-    //var localCrime = -1
     console.log("searching for: ", feature.getProperty('NAME') );
     getCrime(feature.getProperty('NAME'));
-    // if we couldn't get any crime data, then this polygon should be removed
+    // if we couldn't get any crime data,
+    // then this polygon should be removed
     if (localCrime == -1) {
       map.data.remove(feature);
       console.log("removed a feature");
     } else {
-      map.data.overrideStyle(feature,
-    { fillColor: 'red', fillOpacity: (localCrime / maxCrime) });   
+        //Reappropriate the REGIONID property for local crime rate
+        feature.setProperty('REGIONID', localCrime);
+        map.data.overrideStyle( feature,
+        { fillColor: 'red', fillOpacity: (localCrime / maxCrime) })
     }
-    
+    // utility purposes...
+    /*
+    feature.forEachProperty(function(value,property){
+      console.log(property,': ',value);
+    });*/
   });
+  //feature.setProperty('')
   }// Initialize
 
-
-  function httpGet(targetURL) {
+  function httpGet(targetURL){
     var xmlHttp = null;
     xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", targetURL, false );
@@ -84,10 +94,10 @@
     return xmlHttp.responseText;
   }
 
-  function getCrime(regionName) {
+  function getCrime(regionName){
     localCrime = -1;
     myData.forEach(function(neighborhood,count){      
-      if (neighborhood.RegionName === regionName) {
+      if (neighborhood.RegionName === regionName){
         console.log("searched: ",count);
         localCrime = parseFloat(neighborhood.ViolentCrimePer10kCapita);
         return localCrime;
@@ -95,16 +105,11 @@
     });
   }
 
-  function hideNeighborhoods() {
-    map.data.getMap() ? map.data.setMap(null): map.data.setMap(map);
-  }
-
   google.maps.event.addDomListener(window, 'load', initialize);
   </script>
   </head>
   <body>
     <div id="panel">
-      <input type="button" value="Hide" onclick="hideNeighborhoods()">
     </div>
     <div id="map-canvas"></div>
   </body>
