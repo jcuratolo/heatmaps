@@ -6,7 +6,7 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdacxIPLBmGeowW3ICo1quEftRP7DbA2k"></script>
     <script>
-    var map, heatmap, myData, maxCrime, minCrime, allCrime = [], testData2 = [];
+    var map, heatmap, myData, maxCrime, minCrime, localCrime, allCrime = [], testData2 = [];
 
     myData = httpGet("http://localhost:3000/neighborhoods.json");
     myData = JSON.parse(myData);
@@ -15,9 +15,10 @@
     function initialize() {
       var mapCenter = new google.maps.LatLng(-34.397, 150.644);
       var mapOptions = {
+        inverse_lightness: true,
         zoom: 12,
         center: mapCenter,
-        mapTypeId: google.maps.MapTypeId.SATELLITE
+        mapTypeId: google.maps.MapTypeId.TERRAIN
       };
 
       map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -47,28 +48,31 @@
 
   // Pull geoJSON for the neighborhood outlines from the variable in zillow.js
   map.data.addGeoJson(myGJ);
-  map.data.setStyle({strokeWeight: 1});
-
+  map.data.setStyle({map:null,strokeWeight: 0});
+  //map.data.setMap(null);
   // This makes the map responsive to the mouse movement
    map.data.addListener('mouseover', function(event) {
-      map.data.overrideStyle(event.feature, {strokeWeight: 2, strokeColor: 'cyan', zIndex: 999});
+      map.data.overrideStyle(event.feature, {strokeWeight: 2, strokeColor: 'cyan', zIndex: 0});
    });
    map.data.addListener('mouseout', function(event) {
-      map.data.overrideStyle(event.feature, {strokeWeight: 1, strokeColor: 'black', zIndex: 0});
+      map.data.overrideStyle(event.feature, {strokeWeight: 0, strokeColor: 'black', zIndex: 0});
    }); 
 
-// Set the neighborhood polygon styles appropriat
-  map.data.forEach(function(feature) { 
-    //var opacity =
-    //myData.filter(function(obj){
-    //   return obj.RegionName === feature.getProperty('NAME') ? obj.AvgRentPrice/maxRent : false;
-    // });
-    map.data.overrideStyle(feature, {fillOpacity: 1}) 
-    console.log(opacity);
+// Set the neighborhood polygon styles appropriately
+  map.data.forEach(function(feature) {
+    //var localCrime = -1
+    console.log("searching for: ", feature.getProperty('NAME') );
+    getCrime(feature.getProperty('NAME'));
+    // if we couldn't get any crime data, then this polygon should be removed
+    if (localCrime == -1) {
+      map.data.remove(feature);
+      console.log("removed a feature");
+    } else {
+      map.data.overrideStyle(feature,
+    { fillColor: 'red', fillOpacity: (localCrime / maxCrime) });   
+    }
+    
   });
-//map.data.overrideStyle(feature, {fillColor: )
-      //feature.forEachProperty(function(value,property){
-        //console.log(property,':',value);
   }// Initialize
 
 
@@ -80,6 +84,16 @@
     return xmlHttp.responseText;
   }
 
+  function getCrime(regionName) {
+    localCrime = -1;
+    myData.forEach(function(neighborhood,count){      
+      if (neighborhood.RegionName === regionName) {
+        console.log("searched: ",count);
+        localCrime = parseFloat(neighborhood.ViolentCrimePer10kCapita);
+        return localCrime;
+      }
+    });
+  }
 
   function hideNeighborhoods() {
     map.data.getMap() ? map.data.setMap(null): map.data.setMap(map);
