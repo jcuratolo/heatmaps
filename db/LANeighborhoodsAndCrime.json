@@ -1,0 +1,432 @@
+[
+  {
+    "RegionName":"Beverly Glen",
+    "ViolentCrimePer10kCapita":5.2,
+    "201407AvgRent":9000
+  },
+  {
+    "RegionName":"Pacific Palisades",
+    "ViolentCrimePer10kCapita":3.5,
+    "201407AvgRent":7900
+  },
+  {
+    "RegionName":"Bel Air",
+    "ViolentCrimePer10kCapita":1.2,
+    "201407AvgRent":7900
+  },
+  {
+    "RegionName":"Watts",
+    "ViolentCrimePer10kCapita":77.3,
+    "201407AvgRent":1400
+  },
+  {
+    "RegionName":"Cahuenga Pass",
+    "ViolentCrimePer10kCapita":66.7,
+    "201407AvgRent":4500
+  },
+  {
+    "RegionName":"Hollywood Hills",
+    "ViolentCrimePer10kCapita":15.7,
+    "201407AvgRent":5600
+  },
+  {
+    "RegionName":"Leimert Park",
+    "ViolentCrimePer10kCapita":62.5,
+    "201407AvgRent":1500
+  },
+  {
+    "RegionName":"Venice",
+    "ViolentCrimePer10kCapita":30.1,
+    "201407AvgRent":4000
+  },
+  {
+    "RegionName":"Hyde Park",
+    "ViolentCrimePer10kCapita":54.3,
+    "201407AvgRent":1300
+  },
+  {
+    "RegionName":"Brentwood",
+    "ViolentCrimePer10kCapita":3.9,
+    "201407AvgRent":3735
+  },
+  {
+    "RegionName":"Crestview",
+    "ViolentCrimePer10kCapita":50.6,
+    "201407AvgRent":1600
+  },
+  {
+    "RegionName":"Cheviot Hills",
+    "ViolentCrimePer10kCapita":1.4,
+    "201407AvgRent":3600
+  },
+  {
+    "RegionName":"Century City",
+    "ViolentCrimePer10kCapita":1,
+    "201407AvgRent":3600
+  },
+  {
+    "RegionName":"Crenshaw",
+    "ViolentCrimePer10kCapita":50.6,
+    "201407AvgRent":1175
+  },
+  {
+    "RegionName":"West Adams",
+    "ViolentCrimePer10kCapita":45.9,
+    "201407AvgRent":2200
+  },
+  {
+    "RegionName":"South Carthay",
+    "ViolentCrimePer10kCapita":11.6,
+    "201407AvgRent":3300
+  },
+  {
+    "RegionName":"Westwood",
+    "ViolentCrimePer10kCapita":3.7,
+    "201407AvgRent":3158
+  },
+  {
+    "RegionName":"Los Feliz",
+    "ViolentCrimePer10kCapita":13.3,
+    "201407AvgRent":3150
+  },
+  {
+    "RegionName":"Playa Vista",
+    "ViolentCrimePer10kCapita":8.3,
+    "201407AvgRent":3000
+  },
+  {
+    "RegionName":"Del Rey",
+    "ViolentCrimePer10kCapita":10,
+    "201407AvgRent":2950
+  },
+  {
+    "RegionName":"Hollywood",
+    "ViolentCrimePer10kCapita":42,
+    "201407AvgRent":1875
+  },
+  {
+    "RegionName":"Porter Ranch",
+    "ViolentCrimePer10kCapita":3.3,
+    "201407AvgRent":2800
+  },
+  {
+    "RegionName":"West Hills",
+    "ViolentCrimePer10kCapita":8,
+    "201407AvgRent":2795
+  },
+  {
+    "RegionName":"Downtown",
+    "ViolentCrimePer10kCapita":29.2,
+    "201407AvgRent":2500
+  },
+  {
+    "RegionName":"Mid City West",
+    "ViolentCrimePer10kCapita":7.7,
+    "201407AvgRent":2695
+  },
+  {
+    "RegionName":"Mid Wilshire",
+    "ViolentCrimePer10kCapita":7.7,
+    "201407AvgRent":2676
+  },
+  {
+    "RegionName":"West Los Angeles",
+    "ViolentCrimePer10kCapita":3.7,
+    "201407AvgRent":2595
+  },
+  {
+    "RegionName":"Granada Hills",
+    "ViolentCrimePer10kCapita":10.4,
+    "201407AvgRent":2550
+  },
+  {
+    "RegionName":"Westchester",
+    "ViolentCrimePer10kCapita":13.3,
+    "201407AvgRent":2500
+  },
+  {
+    "RegionName":"Playa Del Rey",
+    "ViolentCrimePer10kCapita":14.1,
+    "201407AvgRent":2495
+  },
+  {
+    "RegionName":"Central City East",
+    "ViolentCrimePer10kCapita":18,
+    "201407AvgRent":2460
+  },
+  {
+    "RegionName":"Pico-Robertson",
+    "ViolentCrimePer10kCapita":14.5,
+    "201407AvgRent":2395
+  },
+  {
+    "RegionName":"Sawtelle",
+    "ViolentCrimePer10kCapita":5.9,
+    "201407AvgRent":2395
+  },
+  {
+    "RegionName":"Studio City",
+    "ViolentCrimePer10kCapita":12.6,
+    "201407AvgRent":2381
+  },
+  {
+    "RegionName":"Jefferson Park",
+    "ViolentCrimePer10kCapita":39.9,
+    "201407AvgRent":1160
+  },
+  {
+    "RegionName":"Encino",
+    "ViolentCrimePer10kCapita":9.2,
+    "201407AvgRent":2250
+  },
+  {
+    "RegionName":"Winnetka",
+    "ViolentCrimePer10kCapita":16.2,
+    "201407AvgRent":2200
+  },
+  {
+    "RegionName":"Arleta",
+    "ViolentCrimePer10kCapita":14.7,
+    "201407AvgRent":2200
+  },
+  {
+    "RegionName":"Toluca Lake",
+    "ViolentCrimePer10kCapita":10.5,
+    "201407AvgRent":2175
+  },
+  {
+    "RegionName":"Mid City",
+    "ViolentCrimePer10kCapita":7.7,
+    "201407AvgRent":2150
+  },
+  {
+    "RegionName":"Westlake",
+    "ViolentCrimePer10kCapita":32.9,
+    "201407AvgRent":1650
+  },
+  {
+    "RegionName":"Atwater Village",
+    "ViolentCrimePer10kCapita":12.9,
+    "201407AvgRent":2100
+  },
+  {
+    "RegionName":"Beverlywood",
+    "ViolentCrimePer10kCapita":9.3,
+    "201407AvgRent":2100
+  },
+  {
+    "RegionName":"Reseda",
+    "ViolentCrimePer10kCapita":21.5,
+    "201407AvgRent":1975
+  },
+  {
+    "RegionName":"Woodland Hills",
+    "ViolentCrimePer10kCapita":8.4,
+    "201407AvgRent":2050
+  },
+  {
+    "RegionName":"Harbor City",
+    "ViolentCrimePer10kCapita":19.2,
+    "201407AvgRent":1950
+  },
+  {
+    "RegionName":"Silver Lake",
+    "ViolentCrimePer10kCapita":11.6,
+    "201407AvgRent":1980
+  },
+  {
+    "RegionName":"Palms",
+    "ViolentCrimePer10kCapita":10.3,
+    "201407AvgRent":1975
+  },
+  {
+    "RegionName":"Sylmar",
+    "ViolentCrimePer10kCapita":10.4,
+    "201407AvgRent":1974
+  },
+  {
+    "RegionName":"Echo Park",
+    "ViolentCrimePer10kCapita":16.2,
+    "201407AvgRent":1950
+  },
+  {
+    "RegionName":"Canoga Park",
+    "ViolentCrimePer10kCapita":21.8,
+    "201407AvgRent":1879
+  },
+  {
+    "RegionName":"Valley Village",
+    "ViolentCrimePer10kCapita":9.7,
+    "201407AvgRent":1959
+  },
+  {
+    "RegionName":"Sunland",
+    "ViolentCrimePer10kCapita":13.4,
+    "201407AvgRent":1950
+  },
+  {
+    "RegionName":"Northridge",
+    "ViolentCrimePer10kCapita":13.4,
+    "201407AvgRent":1915
+  },
+  {
+    "RegionName":"Chinatown",
+    "ViolentCrimePer10kCapita":7.6,
+    "201407AvgRent":1921
+  },
+  {
+    "RegionName":"Mar Vista",
+    "ViolentCrimePer10kCapita":6.7,
+    "201407AvgRent":1895
+  },
+  {
+    "RegionName":"Harvard Heights",
+    "ViolentCrimePer10kCapita":35.7,
+    "201407AvgRent":1025
+  },
+  {
+    "RegionName":"Tarzana",
+    "ViolentCrimePer10kCapita":9,
+    "201407AvgRent":1795
+  },
+  {
+    "RegionName":"North Hills",
+    "ViolentCrimePer10kCapita":16.1,
+    "201407AvgRent":1750
+  },
+  {
+    "RegionName":"North Hollywood",
+    "ViolentCrimePer10kCapita":17.7,
+    "201407AvgRent":1726
+  },
+  {
+    "RegionName":"Boyle Heights",
+    "ViolentCrimePer10kCapita":24.7,
+    "201407AvgRent":1600
+  },
+  {
+    "RegionName":"Chatsworth",
+    "ViolentCrimePer10kCapita":12.1,
+    "201407AvgRent":1750
+  },
+  {
+    "RegionName":"South Los Angeles",
+    "ViolentCrimePer10kCapita":27.7,
+    "201407AvgRent":1450
+  },
+  {
+    "RegionName":"Sherman Oaks",
+    "ViolentCrimePer10kCapita":10.2,
+    "201407AvgRent":1700
+  },
+  {
+    "RegionName":"Eagle Rock",
+    "ViolentCrimePer10kCapita":9.9,
+    "201407AvgRent":1695
+  },
+  {
+    "RegionName":"Pico-Union",
+    "ViolentCrimePer10kCapita":32.7,
+    "201407AvgRent":1050
+  },
+  {
+    "RegionName":"Pacoima",
+    "ViolentCrimePer10kCapita":17.5,
+    "201407AvgRent":1595
+  },
+  {
+    "RegionName":"San Pedro",
+    "ViolentCrimePer10kCapita":16.3,
+    "201407AvgRent":1500
+  },
+  {
+    "RegionName":"Wilmington",
+    "ViolentCrimePer10kCapita":24.6,
+    "201407AvgRent":1345
+  },
+  {
+    "RegionName":"Harbor Gateway",
+    "ViolentCrimePer10kCapita":21.4,
+    "201407AvgRent":1400
+  },
+  {
+    "RegionName":"Tujunga",
+    "ViolentCrimePer10kCapita":9.9,
+    "201407AvgRent":1500
+  },
+  {
+    "RegionName":"Panorama City",
+    "ViolentCrimePer10kCapita":23.4,
+    "201407AvgRent":1347
+  },
+  {
+    "RegionName":"Valley Glen",
+    "ViolentCrimePer10kCapita":10.5,
+    "201407AvgRent":1495
+  },
+  {
+    "RegionName":"Glassell Park",
+    "ViolentCrimePer10kCapita":8.9,
+    "201407AvgRent":1495
+  },
+  {
+    "RegionName":"Highland Park",
+    "ViolentCrimePer10kCapita":14.5,
+    "201407AvgRent":1450
+  },
+  {
+    "RegionName":"Southeast Los Angeles",
+    "ViolentCrimePer10kCapita":19,
+    "201407AvgRent":1400
+  },
+  {
+    "RegionName":"Koreatown",
+    "ViolentCrimePer10kCapita":22.2,
+    "201407AvgRent":1199
+  },
+  {
+    "RegionName":"Sun Valley",
+    "ViolentCrimePer10kCapita":14.9,
+    "201407AvgRent":1295
+  },
+  {
+    "RegionName":"El Sereno",
+    "ViolentCrimePer10kCapita":11.9,
+    "201407AvgRent":1290
+  },
+  {
+    "RegionName":"Central City",
+    "ViolentCrimePer10kCapita":18,
+    "201407AvgRent":1195
+  },
+  {
+    "RegionName":"Arlington Heights",
+    "ViolentCrimePer10kCapita":30.4,
+    "201407AvgRent":1300
+  },
+  {
+    "RegionName":"Lincoln Heights",
+    "ViolentCrimePer10kCapita":21.6,
+    "201407AvgRent":950
+  },
+  {
+    "RegionName":"University Hills",
+    "ViolentCrimePer10kCapita":11,
+    "201407AvgRent":950
+  },
+  {
+    "RegionName":"Mission Hills",
+    "ViolentCrimePer10kCapita":9.8,
+    "201407AvgRent":1800
+  },
+  {
+    "RegionName":"Lakeview Terrace",
+    "ViolentCrimePer10kCapita":9.4,
+    "201407AvgRent":2200
+  },
+  {
+    "RegionName":"Mount Washington",
+    "ViolentCrimePer10kCapita":7.4,
+    "201407AvgRent":2000
+  }
+]

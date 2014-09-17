@@ -44,3 +44,6 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'rspec-rails'
+gem 'pry'
+gem 'pry-nav'
+gem 'geokit'

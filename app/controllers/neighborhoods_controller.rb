@@ -5,6 +5,9 @@ class NeighborhoodsController < ApplicationController
   # GET /neighborhoods.json
   def index
     @neighborhoods = Neighborhood.all
+    respond_to do |format|
+      format.json { render json: @neighborhoods }
+    end
   end
 
   # GET /neighborhoods/1
@@ -69,6 +72,6 @@ class NeighborhoodsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def neighborhood_params
-      params.require(:neighborhood).permit(:RegionName, :City, :State, :Metro, :CountryName, :AvgRentPrice)
+      params.require(:neighborhood).permit(:RegionName, :City, :State, :Metro, :CountyName, :AvgRentPrice, :Latitude, :Longitude, :ViolentCrimePer10kCapita)
     end
 end

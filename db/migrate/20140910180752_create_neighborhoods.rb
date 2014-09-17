@@ -5,7 +5,7 @@ class CreateNeighborhoods < ActiveRecord::Migration
       t.string :City
       t.string :State
       t.string :Metro
-      t.string :CountryName
+      t.string :CountyName
       t.string :AvgRentPrice
 
       t.timestamps

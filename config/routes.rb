@@ -1,4 +1,5 @@
 Heatmaps::Application.routes.draw do
+  root 'static#index'
   resources :neighborhoods
 
   # The priority is based upon order of creation: first created -> highest priority.
