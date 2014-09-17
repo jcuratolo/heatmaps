@@ -1,102 +1,97 @@
-<head>
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-  <meta charset="utf-8">
-  <title>LA Rental price heatmap</title>
-  
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdacxIPLBmGeowW3ICo1quEftRP7DbA2k"></script>
-  <script>
-  var map, heatmap, myData, myGeoJSON;
-  myData = httpGet("http://localhost:3000/neighborhoods.json");
-  myData = JSON.parse(myData);
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>LA Rental price heatmap</title>
+    
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdacxIPLBmGeowW3ICo1quEftRP7DbA2k"></script>
+    <script>
+    var map, heatmap, myData, maxCrime, minCrime, allCrime = [], testData2 = [];
 
-  function initialize() {
-    var mapCenter = new google.maps.LatLng(-34.397, 150.644);
-    var mapOptions = {
-      zoom: 10,
-      center: mapCenter,
-      mapTypeId: google.maps.MapTypeId.SATELLITE
-    };
+    myData = httpGet("http://localhost:3000/neighborhoods.json");
+    myData = JSON.parse(myData);
+    console.log(myData[0]);
 
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    var markerCoords = [];
+    function initialize() {
+      var mapCenter = new google.maps.LatLng(-34.397, 150.644);
+      var mapOptions = {
+        zoom: 12,
+        center: mapCenter,
+        mapTypeId: google.maps.MapTypeId.SATELLITE
+      };
 
-    // Load up an array with object literal lat lng and weight values
-    myData.forEach(function( each,count ) {
-      markerCoords.push({ lat: parseFloat( each.Latitude ),
-        lng: parseFloat( each.Longitude ),
-        weight: parseFloat( each.AvgRentPrice )});
-      map.setCenter (markerCoords[count] );
-    });// myData.forEach
+      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      var markerCoords = [];
 
-    var testData2=[];
+      // Load up an array with object literal lat lng and weight values
+      myData.forEach(function( each,count ) {
+        markerCoords.push({ lat: parseFloat( each.Latitude ),
+          lng: parseFloat( each.Longitude ),
+          weight: parseFloat( each.AvgRentPrice )});
+        map.setCenter (markerCoords[count] );
+      });// myData.forEach
 
-  for (i = 0; i < myData.length; i++){
-    testData2[i] = {
-      location: new google.maps.LatLng(myData[i].Latitude, myData[i].Longitude), 
-      weight: parseFloat(myData[i].AvgRentPrice)
-  };
-}
+    // Create an array of weighted Latlng objects using avg rent as the weight
+    for (i = 0; i < myData.length; i++){
+      testData2[i] = {
+        location: new google.maps.LatLng(myData[i].Latitude, myData[i].Longitude), 
+        weight: parseFloat(myData[i].ViolentCrimePer10kCapita)
+      };
+      // Gather the rents in one place, as long as they are in the data
+      testData2[i].weight ? allCrime.push(testData2[i].weight) : null;
+    }
+    
+    // Find the highest and lowest violent crime rates
+    maxCrime = Math.max.apply(null, allCrime);
+    minCrime = Math.min.apply(null, allCrime);
 
-// Just to see if the heatmap works at all...it does.
-var testData = [
-new google.maps.LatLng(37.782551, -122.445368),
-new google.maps.LatLng(37.782745, -122.444586),
-new google.maps.LatLng(37.782842, -122.443688),
-new google.maps.LatLng(37.782919, -122.442815),
-new google.maps.LatLng(37.782992, -122.442112),
-new google.maps.LatLng(37.783100, -122.441461),
-new google.maps.LatLng(37.783206, -122.440829),
-new google.maps.LatLng(37.783273, -122.440324),
-new google.maps.LatLng(37.783316, -122.440023),
-new google.maps.LatLng(37.783357, -122.439794),
-new google.maps.LatLng(37.783371, -122.439687)
-];
+  // Pull geoJSON for the neighborhood outlines from the variable in zillow.js
+  map.data.addGeoJson(myGJ);
+  map.data.setStyle({strokeWeight: 1});
 
-/*
-heatmap = new google.maps.visualization.HeatmapLayer({ data: testData2 });
-heatmap.setMap(map);
-*/
+  // This makes the map responsive to the mouse movement
+   map.data.addListener('mouseover', function(event) {
+      map.data.overrideStyle(event.feature, {strokeWeight: 2, strokeColor: 'cyan', zIndex: 999});
+   });
+   map.data.addListener('mouseout', function(event) {
+      map.data.overrideStyle(event.feature, {strokeWeight: 1, strokeColor: 'black', zIndex: 0});
+   }); 
 
-/*
-d3.json("zillow.json", function(error, json) {
-  if (error) return console.warn(error);
-  myGeoJSON = json;
-});
-*/
-map.data.addGeoJson(myGJ);
-var featureStyle = {
-  strokeColor: '#ff3333',
-  strokeWeight: 0
-}
-console.log(myGJ);
-}// Initialize
+// Set the neighborhood polygon styles appropriat
+  map.data.forEach(function(feature) { 
+    //var opacity =
+    //myData.filter(function(obj){
+    //   return obj.RegionName === feature.getProperty('NAME') ? obj.AvgRentPrice/maxRent : false;
+    // });
+    map.data.overrideStyle(feature, {fillOpacity: 1}) 
+    console.log(opacity);
+  });
+//map.data.overrideStyle(feature, {fillColor: )
+      //feature.forEachProperty(function(value,property){
+        //console.log(property,':',value);
+  }// Initialize
 
 
-function httpGet(targetURL) {
-  var xmlHttp = null;
-  xmlHttp = new XMLHttpRequest();
-  xmlHttp.open( "GET", targetURL, false );
-  xmlHttp.send( null );
-  return xmlHttp.responseText;
-}
+  function httpGet(targetURL) {
+    var xmlHttp = null;
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", targetURL, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+  }
 
-function cycleRadius(newRadius) {
-  heatmap.set('radius', newRadius );
-}
 
-function toggleHeatmap() {
-  heatmap.setMap(heatmap.getMap() ? null : map);
-}
+  function hideNeighborhoods() {
+    map.data.getMap() ? map.data.setMap(null): map.data.setMap(map);
+  }
 
-google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-</head>
-<body>
-  <div id="panel">
-    <input type="button" value="Toggle Heatmap" onclick="toggleHeatmap()">
-    <input type="number" name="Radius Spinner" onchange="cycleRadius(parseFloat(this.value))">
-  </div>
-  <div id="map-canvas"></div>
-</body>
-</html>
+  google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+  </head>
+  <body>
+    <div id="panel">
+      <input type="button" value="Hide" onclick="hideNeighborhoods()">
+    </div>
+    <div id="map-canvas"></div>
+  </body>
+  </html>
