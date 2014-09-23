@@ -1,5 +1,11 @@
+html, body, #map-canvas {
+      height: 100%;
+      margin: 0px;
+      padding: 0px
+}
+
 body {
-  background-color: #fff;
+  background-color: black;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -67,3 +73,33 @@ div {
     list-style: square;
   }
 }
+
+ #panel {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    z-index: 500;
+    background-color: black;
+    padding: 0;
+    font-size: 12px;
+    color: azure;
+ }
+
+  #readout {
+    //position: absolute;
+    top: 0px;
+    width: 100%;
+    padding: 5px;
+    background-color: black;
+    z-index: 1000;
+    size: 10px;
+  }
+
+ #chart_div {
+   border: 1px solid red;
+   background-color: white;
+   height: 20vw;
+   width: 20vw;
+   margin: 0 auto;
+ }
