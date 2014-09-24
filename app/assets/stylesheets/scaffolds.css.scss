@@ -80,7 +80,7 @@ div {
     height: 100%;
     width: 20%;
     z-index: 500;
-    background-color: black;
+    background-color: #393B4D;
     padding: 0;
     font-size: 12px;
     color: azure;
@@ -91,15 +91,27 @@ div {
     top: 0px;
     width: 100%;
     padding: 5px;
-    background-color: black;
+    background-color: #4D4F66;
     z-index: 1000;
-    size: 10px;
+    size: 14px;
   }
 
- #chart_div {
-   border: 1px solid red;
-   background-color: white;
-   height: 20vw;
-   width: 20vw;
+ #scatter_chart_div {
+   width: 100%;
+   margin: 0 auto;
+ }
+
+ #bar_chart_div {
+  width: 100%;
+   margin: 0 auto;
+ }
+
+ #bar_chart_div {
+  width: 100%;
+   margin: 0 auto;
+ }
+
+ #feature_vector_chart_div {
+  width: 100%;
    margin: 0 auto;
  }
