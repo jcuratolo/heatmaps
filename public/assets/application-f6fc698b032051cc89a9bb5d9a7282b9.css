@@ -1,0 +1,161 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+ */
+
+/* line 1, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+html, body, #map-canvas {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 7, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+body {
+  background-color: black;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 15, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 21, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+/* line 27, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+a {
+  color: #000;
+}
+/* line 29, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+a:visited {
+  color: #666;
+}
+/* line 32, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+a:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+/* line 39, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+/* line 44, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#notice {
+  color: green;
+}
+
+/* line 48, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* line 54, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+/* line 61, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+/* line 71, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+/* line 77, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#panel {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 20%;
+  z-index: 500;
+  background: -webkit-linear-gradient(left, #4c4f66 0%, #393b4d 100%);
+  padding: 0;
+  font-size: 12px;
+  color: azure;
+  box-shadow: -15px 0px 36px -12px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* line 92, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#readout {
+  top: 0px;
+  width: 100%;
+  padding: 5px;
+  background-color: #4D4F66;
+  z-index: 1000;
+  size: 14px;
+}
+
+/* line 102, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#scatter_chart_div {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* line 107, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#bar_chart_div {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* line 112, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#bar_chart_div {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* line 117, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#feature_vector_chart_div {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* line 122, /Users/Raptor/Documents/rails_projects/heatmaps/app/assets/stylesheets/scaffolds.css.scss */
+#shadow_box {
+  box-shadow: inset 0px 0px 300px 0px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100vw;
+  width: 100vw;
+  z-index: 1000;
+  pointer-events: none;
+}
