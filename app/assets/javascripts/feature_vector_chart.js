@@ -18,27 +18,31 @@ var options = {
     easing: 'out'
   },
   isStacked: false,
-  colors: [ '#ACE6E6', '#5665E6' ],
+  colors: [ '#86b3b3', '#5665E6' ],
   backgroundColor: 'none',
   titleTextStyle: {
     color: '#FF4068',
-    fontSize: 16,
-    bold: true
+    fontSize: 12,
+    bold: false
   },
   legend: {
     position: 'none'
   },
   hAxis: {
     textStyle: {
-      color: 'azure'
+      color: 'azure',
+      baselineColor: '#6070FF'
     },
   },
   vAxis: {
     textStyle: {
       color: 'azure'
     },
+    gridlines: {
+      color: '#808080'
+    },
     baseline: 0,
-    baselineColor: '#E6E6A1',
+    baselineColor: '#6070FF',
     ticks: [ .5, 1.0 ],
     ViewWindowMode: 'explicit',
     viewWindow: {

@@ -14,11 +14,11 @@
    data.addRows( scatterData );
 
    var options = {
-     title: 'LA Metro Rent vs. Crime',
+     title: 'LA Metro',
      titleTextStyle: {
        color: '#FF4068',
-       fontSize: 16,
-       bold: true
+       fontSize: 12,
+       bold: false
      },
      colors: [ '#ACE6E6', '5665E6' ],
      dataOpacity: .9,

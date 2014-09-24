@@ -6,26 +6,26 @@ var barChart,
 function initBarChart() {
   barChart = new google.visualization.BarChart( document.getElementById( 'bar_chart_div' ) );
   barChartData = google.visualization.arrayToDataTable( [
-    [ 'Year', 'Sales' ],
-    [ 'Rent', .7 ],
-    [ 'Crime', .15 ],
+    [ 'Category', '' ],
+    [ 'Rent', .5 ],
+    [ 'Crime', .5 ],
   ] );
   drawBarChart();
 }
 
 barChartOptions = {
-  title: 'Rent and Crime vs Max',
+  title: 'Relative to Highest',
   animation: {
     duration: 250,
     easing: 'out'
   },
   isStacked: false,
-  colors: [ '#ACE6E6', '#5665E6' ],
+  colors: [ '#86b3b3', '#5665E6' ],
   backgroundColor: 'none',
   titleTextStyle: {
     color: '#FF4068',
-    fontSize: 16,
-    bold: true
+    fontSize: 12,
+    bold: false
   },
   legend: {
     position: 'none'
@@ -34,13 +34,19 @@ barChartOptions = {
     textStyle: {
       color: 'azure'
     },
+    gridlines: {
+      color: '#808080'
+    },
   },
   hAxis: {
     textStyle: {
       color: 'azure'
     },
     baseline: 0,
-    baselineColor: '#E6E6A1',
+    baselineColor: '#6070FF',
+    gridlines: {
+      color: '#808080'
+    },
     ticks: [ .5, 1.0 ],
     ViewWindowMode: 'explicit',
     viewWindow: {

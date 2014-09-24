@@ -1,7 +1,7 @@
 html, body, #map-canvas {
       height: 100%;
       margin: 0px;
-      padding: 0px
+      padding: 0px;      
 }
 
 body {
@@ -80,10 +80,13 @@ div {
     height: 100%;
     width: 20%;
     z-index: 500;
-    background-color: #393B4D;
+    //background-color: #393B4D;
+    background: -webkit-linear-gradient(left, rgba(76,79,102,1) 0%, rgba(57,59,77,1) 100%);
     padding: 0;
     font-size: 12px;
     color: azure;
+    box-shadow: -15px 0px 36px -12px rgba(0,0,0,.5);
+    text-align: center;
  }
 
   #readout {
@@ -114,4 +117,15 @@ div {
  #feature_vector_chart_div {
   width: 100%;
    margin: 0 auto;
+ }
+
+ #shadow_box {
+  box-shadow: inset 0px 0px 300px 0px rgba(0,0,0,.25);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100vw;
+  width: 100vw;
+  z-index: 1000;
+  pointer-events: none;
  }

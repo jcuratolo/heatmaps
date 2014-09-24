@@ -1,5 +1,7 @@
-var heatmap,
+var map,
+  heatmap,
   myData,
+  displayMode = 'crime',
   maxCrime,
   minCrime,
   maxRent,
@@ -13,7 +15,7 @@ var heatmap,
   scatterData = [],
   testData2 = [],
   colorHigh = [ 255, 96, 96 ],
-  colorLow = [ 96, 112, 255 ];
+  colorLow = [ 96, 112, 200 ];
 
 // Get rent and crime from the our DB JSON endpoint
 myData = httpGet( "http://localhost:3000/neighborhoods.json" );
@@ -43,7 +45,7 @@ for ( i = 0; i < myData.length; i++ ) {
     crime: myData[ i ].ViolentCrimePer10kCapita
   };
 }
-console.log( quickLookup );
+//console.log( quickLookup );
 // Need to insert column titles at the beginning
 //scatterData.unshift( new Array( "Rent", "Crime", "Neighborhood" ) );
 
@@ -55,13 +57,72 @@ minCrime = Math.min.apply( null, allCrime );
 
 // Set up the map
 function initialize() {
-  var map = new google.maps.Map( document.getElementById( 'map-canvas' ) );
+  map = new google.maps.Map( document.getElementById( "map-canvas" ) );
   var mapCenter = new google.maps.LatLng( myData[ 0 ].Latitude, myData[ 0 ].Longitude );
   var mapOptions = {
     zoom: 12,
     scrollwheel: false,
     center: mapCenter,
-    mapTypeId: google.maps.MapTypeId.TERRAIN
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [ {
+      "featureType": "water",
+      "stylers": [ {
+        "visibility": "on"
+      }, {
+        "color": "#acbcc9"
+      } ]
+    }, {
+      "featureType": "landscape",
+      "stylers": [ {
+        "color": "#f2e5d4"
+      } ]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "geometry",
+      "stylers": [ {
+        "color": "#c5c6c6"
+      } ]
+    }, {
+      "featureType": "road.arterial",
+      "elementType": "geometry",
+      "stylers": [ {
+        "color": "#e4d7c6"
+      } ]
+    }, {
+      "featureType": "road.local",
+      "elementType": "geometry",
+      "stylers": [ {
+        "color": "#fbfaf7"
+      } ]
+    }, {
+      "featureType": "poi.park",
+      "elementType": "geometry",
+      "stylers": [ {
+        "color": "#c5dac6"
+      } ]
+    }, {
+      "featureType": "administrative",
+      "stylers": [ {
+        "visibility": "on"
+      }, {
+        "lightness": 33
+      } ]
+    }, {
+      "featureType": "road"
+    }, {
+      "featureType": "poi.park",
+      "elementType": "labels",
+      "stylers": [ {
+        "visibility": "on"
+      }, {
+        "lightness": 20
+      } ]
+    }, {}, {
+      "featureType": "road",
+      "stylers": [ {
+        "lightness": 20
+      } ]
+    } ]
   };
 
   map.setOptions( mapOptions );
@@ -71,55 +132,27 @@ function initialize() {
   // Pull geoJSON for the neighborhood polygons from the variable in zillow.js
   map.data.addGeoJson( myGJ );
   map.data.setStyle( {
-    strokeWeight: 0,
-    strokeColor: 'black',
+    strokeWeight: 1,
+    strokeColor: '#404040',
     //fillOpacity: .1
   } );
 
   // Set the neighborhood polygon styles appropriately
-  map.data.forEach( function( feature ) {
-    var key = feature.getProperty( 'NAME' );
-    console.log( key );
-    if ( quickLookup[ key ] ) {
-      localCrime = quickLookup[ key ].crime;
-      localRent = quickLookup[ key ].rent;
-      map.data.overrideStyle( feature, {
-        fillColor: interpolateToHex( localCrime / maxCrime ),
-        fillOpacity: 1
-      } );
-    }
-    // if we couldn't get any crime data,
-    // then this polygon should be removed
-    //if ( localCrime == -1 ) {
-    //map.data.remove( feature );
-    //console.log("removed ", feature.k.NAME);
-    //} else {
-    //console.log(feature.getProperty('NAME'));
-    // Reappropriate the REGIONID property 
-    // to store local crime rate
-    //feature.setProperty( 'REGIONID', newREGIONID );
-
-
-    // For utility purposes...
-    /*
-    feature.forEachProperty(function(value,property){
-    console.log(property,': ',value);
-    });*/
-  } );
+  setNeighborhoodColors();
 
   // These next two make the map responsive to mouseovers
   map.data
     .addListener( 'mouseover', function( event ) {
       hover = event.feature.k.NAME;
-      console.log( quickLookup[ hover ] );
-      featureVectorChartData.setValue( 0, 1, quickLookup[ hover ].crime / maxCrime );
+      //console.log( quickLookup[ hover ] );
+      featureVectorChartData.setValue( 0, 1, 1 - ( Math.pow( Math.pow( quickLookup[ hover ].crime, 4.18277 ) + Math.pow( quickLookup[ hover ].rent, 2 ), .5 ) / 9000 ) );
       barChartData.setValue( 1, 1, quickLookup[ hover ].crime / maxCrime );
       barChartData.setValue( 0, 1, quickLookup[ hover ].rent / maxRent )
       drawBarChart();
       drawFeatureVectorChart();
       map.data
         .overrideStyle( event.feature, {
-          strokeWeight: 4,
+          strokeWeight: 2,
           strokeColor: 'white',
           zIndex: 999
         } );
@@ -138,7 +171,7 @@ function initialize() {
       map.data
         .overrideStyle( event.feature, {
           strokeWeight: 1,
-          strokeColor: 'grey',
+          strokeColor: '#404040',
           zIndex: 0
         } );
     } );
@@ -201,6 +234,30 @@ function setReadout( innerHTML ) {
 
 function recenter( newCenter ) {
   map.panTo( newCenter );
+}
+
+function setDisplayMode() {
+  displayMode = displayMode == 'crime' ? 'rent' : 'crime';
+  console.debug( displayMode );
+  setNeighborhoodColors();
+}
+
+function setNeighborhoodColors() {
+  // Set the neighborhood polygon styles appropriately
+  map.data.forEach( function( feature ) {
+    var key = feature.getProperty( 'NAME' );
+    //console.log( key );
+    if ( quickLookup[ key ] ) {
+      localCrime = quickLookup[ key ].crime;
+      localRent = quickLookup[ key ].rent;
+      map.data.overrideStyle( feature, {
+        fillColor: displayMode == 'crime' ? interpolateToHex( localCrime / maxCrime ) : interpolateToHex( localRent / maxRent ),
+        fillOpacity: .7
+      } );
+    } else {
+      map.data.remove( feature );
+    }
+  } );
 }
 
 google.maps.event.addDomListener( window, 'load', initialize );
