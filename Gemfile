@@ -4,7 +4,13 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.4'
 
 # Use sqlite3 as the database for Active Record
+group :development do 
 gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -47,3 +53,4 @@ gem 'rspec-rails'
 gem 'pry'
 gem 'pry-nav'
 gem 'geokit'
+ruby '2.0.0'
