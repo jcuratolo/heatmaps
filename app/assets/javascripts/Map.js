@@ -1,4 +1,4 @@
-console.log( "LOADED MAP.JS" )
+console.log( "LOADED MAP.JS" );
 var map,
   heatmap,
   myData,
