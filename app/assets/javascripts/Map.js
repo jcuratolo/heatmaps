@@ -18,7 +18,7 @@ var map,
   colorLow = [ 96, 112, 200 ];
 
 // Get rent and crime from the our DB JSON endpoint
-myData = httpGet( "http://localhost:3000/neighborhoods.json" );
+myData = httpGet( "http://limitless-cliffs-3918.herokuapp.com/neighborhoods.json" );
 myData = JSON.parse( myData );
 //console.log(myData);
 
