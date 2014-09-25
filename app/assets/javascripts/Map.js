@@ -70,60 +70,87 @@ function initialize() {
     styles: [ {
       "featureType": "water",
       "stylers": [ {
-        "visibility": "on"
-      }, {
-        "color": "#acbcc9"
+        "color": "#021019"
       } ]
     }, {
       "featureType": "landscape",
       "stylers": [ {
-        "color": "#f2e5d4"
+        "color": "#08304b"
+      } ]
+    }, {
+      "featureType": "poi",
+      "elementType": "geometry",
+      "stylers": [ {
+        "color": "#0c4152"
+      }, {
+        "lightness": 5
       } ]
     }, {
       "featureType": "road.highway",
-      "elementType": "geometry",
+      "elementType": "geometry.fill",
       "stylers": [ {
-        "color": "#c5c6c6"
+        "color": "#000000"
+      } ]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "geometry.stroke",
+      "stylers": [ {
+        "color": "#0b434f"
+      }, {
+        "lightness": 25
       } ]
     }, {
       "featureType": "road.arterial",
-      "elementType": "geometry",
+      "elementType": "geometry.fill",
       "stylers": [ {
-        "color": "#e4d7c6"
+        "color": "#000000"
+      } ]
+    }, {
+      "featureType": "road.arterial",
+      "elementType": "geometry.stroke",
+      "stylers": [ {
+        "color": "#0b3d51"
+      }, {
+        "lightness": 16
       } ]
     }, {
       "featureType": "road.local",
       "elementType": "geometry",
       "stylers": [ {
-        "color": "#fbfaf7"
+        "color": "#000000"
       } ]
     }, {
-      "featureType": "poi.park",
-      "elementType": "geometry",
+      "elementType": "labels.text.fill",
       "stylers": [ {
-        "color": "#c5dac6"
+        "color": "#ffffff"
+      } ]
+    }, {
+      "elementType": "labels.text.stroke",
+      "stylers": [ {
+        "color": "#000000"
+      }, {
+        "lightness": 13
+      } ]
+    }, {
+      "featureType": "transit",
+      "stylers": [ {
+        "color": "#146474"
       } ]
     }, {
       "featureType": "administrative",
+      "elementType": "geometry.fill",
       "stylers": [ {
-        "visibility": "on"
-      }, {
-        "lightness": 33
+        "color": "#000000"
       } ]
     }, {
-      "featureType": "road"
-    }, {
-      "featureType": "poi.park",
-      "elementType": "labels",
+      "featureType": "administrative",
+      "elementType": "geometry.stroke",
       "stylers": [ {
-        "visibility": "on"
+        "color": "#144b53"
       }, {
-        "lightness": 20
-      } ]
-    }, {}, {
-      "featureType": "road",
-      "stylers": [ {
-        "lightness": 20
+        "lightness": 14
+      }, {
+        "weight": 1.4
       } ]
     } ]
   };
@@ -180,7 +207,9 @@ function initialize() {
   map.data.addListener( "click ", function( event ) {
     map.panTo( event.latLng );
   } );
-
+  document.getElementById( "displayMode" )
+    .innerHTML = displayMode;
+  setNeighborhoodColors();
 } // Initialize
 
 
@@ -239,7 +268,8 @@ function recenter( newCenter ) {
 
 function setDisplayMode() {
   displayMode = displayMode == 'crime' ? 'rent' : 'crime';
-  console.debug( displayMode );
+  document.getElementById( "displayMode" )
+    .innerHTML = displayMode;
   setNeighborhoodColors();
 }
 
