@@ -175,7 +175,8 @@ function initialize() {
     .addListener( 'mouseover', function( event ) {
       hover = event.feature.k.NAME;
       //console.log( quickLookup[ hover ] );
-      featureVectorChartData.setValue( 0, 1, 1 - ( Math.pow( Math.pow( quickLookup[ hover ].crime, 4.18277 ) + Math.pow( quickLookup[ hover ].rent, 2 ), .5 ) / 9000 ) );
+      featureVectorChartData.setValue( 0, 1, 1 - ( Math.pow( Math.pow( quickLookup[ hover ].crime, 2 ) + Math.pow( quickLookup[ hover ].rent, 2 ), .5 ) / 9000 ) );
+      featureVectorChartData.setValue( 1, 1, 1 - ( Math.pow( Math.pow( quickLookup[ hover ].crime, 5 ) + Math.pow( quickLookup[ hover ].rent, 2 ), .5 ) / 9000 ) );
       barChartData.setValue( 1, 1, quickLookup[ hover ].crime / maxCrime );
       barChartData.setValue( 0, 1, quickLookup[ hover ].rent / maxRent )
       drawBarChart();

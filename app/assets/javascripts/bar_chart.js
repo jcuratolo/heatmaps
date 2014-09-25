@@ -16,7 +16,7 @@ function initBarChart() {
 barChartOptions = {
   title: 'Relative to Highest',
   animation: {
-    duration: 250,
+    duration: 125,
     easing: 'out'
   },
   isStacked: false,

@@ -3,10 +3,11 @@ var featureVectorChart;
 var featureVectorChartData;
 
 function initFeatureVectorChart() {
-  featureVectorChart = new google.visualization.ColumnChart( document.getElementById( 'feature_vector_chart_div' ) );
+  featureVectorChart = new google.visualization.BarChart( document.getElementById( 'feature_vector_chart_div' ) );
   featureVectorChartData = google.visualization.arrayToDataTable( [
-    [ 'Year', 'Sales' ],
-    [ 'Rent', .7 ]
+    [ 'Category', 'Magnitude' ],
+    [ 'Composite', .7 ],
+    [ 'Special', .7 ]
   ] );
   drawFeatureVectorChart();
 }
@@ -14,7 +15,7 @@ function initFeatureVectorChart() {
 var options = {
   title: 'Composite Score',
   animation: {
-    duration: 250,
+    duration: 125,
     easing: 'out'
   },
   isStacked: false,
@@ -28,13 +29,13 @@ var options = {
   legend: {
     position: 'none'
   },
-  hAxis: {
+  vAxis: {
     textStyle: {
       color: 'azure',
       baselineColor: '#6070FF'
     },
   },
-  vAxis: {
+  hAxis: {
     textStyle: {
       color: 'azure'
     },
