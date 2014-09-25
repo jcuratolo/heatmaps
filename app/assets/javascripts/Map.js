@@ -20,8 +20,8 @@ var map,
 
 // Get rent and crime from the our DB JSON endpoint
 var endpoint = "http://limitless-cliffs-3918.herokuapp.com/neighborhoods.json";
-myData = httpGet( endpoint );
-//myData = httpGet( "http://localhost:3000/neighborhoods.json" );
+//myData = httpGet( endpoint );
+myData = httpGet( "http://localhost:3000/neighborhoods.json" );
 myData = JSON.parse( myData );
 //console.log(myData);
 
@@ -159,14 +159,12 @@ function initialize() {
           strokeColor: 'white',
           zIndex: 999
         } );
-      var readoutText =
-        event
-        .feature
-        .getProperty( "NAME" ) + '\n' +
-        event
-        .feature
-        .getProperty( "REGIONID" ) + " Violent crimes per 10k people";
-      setReadout( readoutText );
+      document.getElementById( "readout1" )
+        .innerHTML = event.feature.getProperty( 'NAME' );
+      document.getElementById( "readout2" )
+        .innerHTML = "$" + quickLookup[ hover ].rent;
+      document.getElementById( "readout3" )
+        .innerHTML = quickLookup[ hover ].crime + "Violent Crimes per 10k";
     } );
 
   map.data
@@ -179,7 +177,7 @@ function initialize() {
         } );
     } );
 
-  map.data.addListener( "click", function( event ) {
+  map.data.addListener( "click ", function( event ) {
     map.panTo( event.latLng );
   } );
 
