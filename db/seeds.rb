@@ -1,4 +1,4 @@
-require 'JSON'
+#require 'JSON'
 count = 0
 datapath = "#{Rails.root}/db/LANeighborhoodsAndCrime.json"
 data = JSON.parse(File.read(datapath))
