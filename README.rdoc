@@ -1,28 +1,9 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a visualization of rent and crime by neighborhood in Los Angeles, California
 
-Things you may want to cover:
+The project is a single page interactive experience that represents information in a database through a map and charts.
 
-* Ruby version
+Built with RoR, Javascript, Google Maps API V3, Google Charts Visualizations, SQLite/PostgreSQL, and of course HTML/CSS.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+A Heroku deployment has been tested and works as expected. Use at your own risk.
