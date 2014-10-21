@@ -3,17 +3,68 @@
   <meta charset="utf-8">
   <title>LA Rental price heatmap</title>
 </head>
+<header>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <a class="navbar-brand" href="#">Rent and Crime in Los Angeles</a>
+      <ul class="nav navbar-nav">
+        <li><a><div id="readoutName"></div></a></li>
+        <li><a><div id="readoutRent"></div></a></li>
+        <li><a><div id="readoutCrime"></div></a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span id="displayMode"></span>
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a  onclick="setDisplayMode('Crime')">Crime</a></li>
+            <li><a  onclick="setDisplayMode('Rent')">Rent</a></li>
+            <li class="divider"></li>
+            <li><a  onclick="setDisplayMode('Composite')">Composite</a></li>
+            <li><a  onclick="setDisplayMode('Special')">Special</a></li>
+            <li class="divider"></li>
+            <li><a data-toggle="modal" href="#aboutThisProjectModal">About</a></li>
+          </ul>
+      </li>
+      </ul>
+    </div>
+  </nav>
+</header>
 <body>
   <div id="panel">
-    <div class="quarter_height" style="font-size: 20px;">
-      <div id="readout1"></div><div id="readout2"></div><div id="readout3"></div>
-      <div onclick="setDisplayMode()"><h3>Showing: <div id="displayMode" onclick="setDisplayMode()"></div></h3></div>
-      </div>
+    <!-- <div class="quarter_height" style="font-size: 20px;"></div> -->
     <div class="quarter_height"><div id="scatter_chart_div"></div></div>
     <div class="quarter_height"><div id="bar_chart_div"></div></div>
     <div class="quarter_height"><div id="feature_vector_chart_div"></div></div>
-
-</div>
-<div id="map-canvas"></div>
+  </div>
+  <!-- About Modal -->
+        <div class="modal fade" id="aboutThisProjectModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">About This Project</h4>
+              </div>
+              <div class="modal-body">
+                The map color codes neighborhoods in Los Angeles, California  according to data gathered from Zillow and the LA Times on rent, crime rate, and how they interact with each other geographically.
+                </br>
+                </br>
+                Maybe you are looking for a new place to live or are simply curious about a certain part of town? If you are new the LA area, perhaps you haven't yet calibrated your sensitivity to the visual cues that provide information about where we work and live. Explore the map and display modes to learn about LA's neighborhoods.
+                </br>
+                </br>
+                Uncolored neighborhoods have not reported rental statistics or law enforcement statistics. Neighborhoods are areas defined largely by social agreement though in some cases they also indicate a separate city such as Santa Monica.
+                </br>
+                </br>
+                Justin Curatolo
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+  <div id="map-canvas"></div>
 </body>
 </html>

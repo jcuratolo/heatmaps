@@ -1,8 +1,6 @@
 class NeighborhoodsController < ApplicationController
   before_action :set_neighborhood, only: [:show, :edit, :update, :destroy]
 
-  # GET /neighborhoods
-  # GET /neighborhoods.json
   def index
     @neighborhoods = Neighborhood.all
     respond_to do |format|
@@ -10,22 +8,17 @@ class NeighborhoodsController < ApplicationController
     end
   end
 
-  # GET /neighborhoods/1
-  # GET /neighborhoods/1.json
+  
   def show
   end
 
-  # GET /neighborhoods/new
   def new
     @neighborhood = Neighborhood.new
   end
 
-  # GET /neighborhoods/1/edit
   def edit
   end
 
-  # POST /neighborhoods
-  # POST /neighborhoods.json
   def create
     @neighborhood = Neighborhood.new(neighborhood_params)
 
@@ -40,8 +33,6 @@ class NeighborhoodsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /neighborhoods/1
-  # PATCH/PUT /neighborhoods/1.json
   def update
     respond_to do |format|
       if @neighborhood.update(neighborhood_params)
@@ -54,8 +45,6 @@ class NeighborhoodsController < ApplicationController
     end
   end
 
-  # DELETE /neighborhoods/1
-  # DELETE /neighborhoods/1.json
   def destroy
     @neighborhood.destroy
     respond_to do |format|
@@ -65,12 +54,11 @@ class NeighborhoodsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_neighborhood
       @neighborhood = Neighborhood.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def neighborhood_params
       params.require(:neighborhood).permit(:RegionName, :City, :State, :Metro, :CountyName, :AvgRentPrice, :Latitude, :Longitude, :ViolentCrimePer10kCapita)
     end

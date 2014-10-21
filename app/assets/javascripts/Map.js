@@ -2,37 +2,42 @@ console.log( "LOADED MAP.JS" );
 var map,
   heatmap,
   myData,
-  displayMode = 'crime',
-  maxCrime,
-  minCrime,
-  maxRent,
-  minRent,
-  hover,
-  quickLookup = {},
-  localCrime,
-  localRent,
+  displayMode = 'Crime',
+  maxCrime = 1,
+  minCrime = 1,
+  maxRent = 1,
+  minRent = 1,
+  localCrime = 1,
+  localRent = 1,
   allRent = [],
   allCrime = [],
+  hover,
+  quickLookup = {},
   scatterData = [],
   testData2 = [],
-  colorHigh = [ 255, 96, 96 ],
+  //colorHigh = [ 255, 24, 24 ],
+  //colorLow = [ 8, 8, 72 ];
+  colorHigh = [ 255, 112, 112 ],
   colorLow = [ 96, 112, 200 ];
 
+
 // Get rent and crime from the our DB JSON endpoint
-var endpoint = "http://limitless-cliffs-3918.herokuapp.com/neighborhoods.json";
+//var endpoint = "http://limitless-cliffs-3918.herokuapp.com/neighborhoods.json";
 //myData = httpGet( endpoint );
 myData = httpGet( "http://localhost:3000/neighborhoods.json" );
 myData = JSON.parse( myData );
-//console.log(myData);
 
-// Lock n load!
+
+// Lock n load data! Loop through the parsed json
 for ( i = 0; i < myData.length; i++ ) {
   if ( myData[ i ].AvgRentPrice > 0 ) {
+    // Begin to accumulate all the rents in one place
     allRent.push( myData[ i ].AvgRentPrice );
   } else {
     console.log( "No rent for", myData[ i ].RegionName );
   }
   if ( myData[ i ].ViolentCrimePer10kCapita >= 0 ) {
+    // Begin to accumulate all the crimerates in one place
     allCrime.push( myData[ i ].ViolentCrimePer10kCapita );
   } else {
     console.log( "No crime rate for", myData[ i ].RegionName );
@@ -42,15 +47,15 @@ for ( i = 0; i < myData.length; i++ ) {
     new Array(
       parseFloat( myData[ i ].AvgRentPrice ),
       parseFloat( myData[ i ].ViolentCrimePer10kCapita ),
-      myData[ i ].RegionName + "\nAvg. Rent: " + myData[ i ].AvgRentPrice + "\n Crime per 10k: " + myData[ i ].ViolentCrimePer10kCapita ) );
+      myData[ i ].RegionName + "\nAvg. Rent: " + myData[ i ].AvgRentPrice + "\n Crime per 10k: " + myData[ i ].ViolentCrimePer10kCapita ) 
+    );
+  // Begin building a so called hash for utility purposes
   quickLookup[ myData[ i ].RegionName ] = {
     rent: parseFloat( myData[ i ].AvgRentPrice ),
     crime: myData[ i ].ViolentCrimePer10kCapita
   };
 }
-//console.log( quickLookup );
-// Need to insert column titles at the beginning
-//scatterData.unshift( new Array( "Rent", "Crime", "Neighborhood" ) );
+
 
 // Find the highest and lowest rents crime rates
 maxRent = Math.max.apply( null, allRent );
@@ -58,8 +63,10 @@ minRent = Math.min.apply( null, allRent );
 maxCrime = Math.max.apply( null, allCrime );
 minCrime = Math.min.apply( null, allCrime );
 
+
 // Set up the map
 function initialize() {
+  console.log("initialize()");
   map = new google.maps.Map( document.getElementById( "map-canvas" ) );
   var mapCenter = new google.maps.LatLng( myData[ 0 ].Latitude, myData[ 0 ].Longitude );
   var mapOptions = {
@@ -67,6 +74,7 @@ function initialize() {
     scrollwheel: false,
     center: mapCenter,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    // Make it pretty and dark blue
     styles: [ {
       "featureType": "water",
       "stylers": [ {
@@ -155,8 +163,8 @@ function initialize() {
     } ]
   };
 
-  map.setOptions( mapOptions );
 
+  map.setOptions( mapOptions );
 
 
   // Pull geoJSON for the neighborhood polygons from the variable in zillow.js
@@ -167,34 +175,38 @@ function initialize() {
     //fillOpacity: .1
   } );
 
-  // Set the neighborhood polygon styles appropriately
-  setNeighborhoodColors();
 
-  // These next two make the map responsive to mouseovers
+  // Make the map responsive to mouseovers and trigger appropriate changes
   map.data
     .addListener( 'mouseover', function( event ) {
       hover = event.feature.k.NAME;
-      //console.log( quickLookup[ hover ] );
-      featureVectorChartData.setValue( 0, 1, 1 - ( Math.pow( Math.pow( quickLookup[ hover ].crime, 2 ) + Math.pow( quickLookup[ hover ].rent, 2 ), .5 ) / 9000 ) );
-      featureVectorChartData.setValue( 1, 1, 1 - ( Math.pow( Math.pow( quickLookup[ hover ].crime, 5 ) + Math.pow( quickLookup[ hover ].rent, 2 ), .5 ) / 9000 ) );
+      localCrime = quickLookup[ hover ].crime;
+      localRent = quickLookup[ hover ].rent;
+      featureVectorChartData.setValue( 0, 1, getCompositeScore( localCrime, localRent ) );
+      featureVectorChartData.setValue( 1, 1, getSpecialScore( localCrime, localRent ) );
       barChartData.setValue( 1, 1, quickLookup[ hover ].crime / maxCrime );
       barChartData.setValue( 0, 1, quickLookup[ hover ].rent / maxRent )
       drawBarChart();
       drawFeatureVectorChart();
+      // High light the mouse overed neighborhood
       map.data
         .overrideStyle( event.feature, {
           strokeWeight: 2,
           strokeColor: 'white',
           zIndex: 999
         } );
-      document.getElementById( "readout1" )
+      // Update the display at the top of the screen
+      document.getElementById( "readoutName" )
         .innerHTML = event.feature.getProperty( 'NAME' );
-      document.getElementById( "readout2" )
-        .innerHTML = "$" + quickLookup[ hover ].rent;
-      document.getElementById( "readout3" )
-        .innerHTML = quickLookup[ hover ].crime + "Violent Crimes per 10k";
-    } );
 
+      document.getElementById( "readoutRent" )
+        .innerHTML = "$" + quickLookup[ hover ].rent;
+
+      document.getElementById( "readoutCrime" )
+        .innerHTML = quickLookup[ hover ].crime + " Violent Crimes per 10k";
+    } );
+  
+  // Make the map responsive to mouseouts
   map.data
     .addListener( 'mouseout', function( event ) {
       map.data
@@ -204,17 +216,30 @@ function initialize() {
           zIndex: 0
         } );
     } );
-
+  
+  // Recenter the map over the clicked neighborhood
   map.data.addListener( "click ", function( event ) {
     map.panTo( event.latLng );
   } );
-  document.getElementById( "displayMode" )
-    .innerHTML = displayMode;
-  setNeighborhoodColors();
-} // Initialize
 
-
+  // Update the interface and begin coloring neighborhoods
+  initDisplayMode()
+} // End Initialize
+//
+//
+//=============================================================================
+//
+//
 // Utility functions used above
+//
+//
+function initDisplayMode() {
+  console.log("initDisplayMode()");
+  document.getElementById( "displayMode" ).innerHTML = "Showing: "+displayMode;
+  setNeighborhoodColors();
+}
+
+
 function interpolateToHex( scaleFactor ) {
   var intermediate = [];
   intermediate[ 0 ] = parseInt( Math.abs( ( colorHigh[ 0 ] - colorLow[ 0 ] ) * scaleFactor + colorLow[ 0 ] ) );
@@ -225,7 +250,8 @@ function interpolateToHex( scaleFactor ) {
   intermediate[ 2 ] > 255 ? intermediate[ 2 ] = 255 : null;
   //console.log('#' + toHex(intermediate[0]) + toHex(intermediate[1]) + toHex(intermediate[2]));
   return '#' + toHex( intermediate[ 0 ] ) + toHex( intermediate[ 1 ] ) + toHex( intermediate[ 2 ] );
-}
+};
+
 
 function toHex( c ) {
   var hex = c.toString( 16 )
@@ -236,6 +262,7 @@ function toHex( c ) {
   return hex;
 }
 
+
 function httpGet( targetURL ) {
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open( "GET", targetURL, false );
@@ -243,53 +270,88 @@ function httpGet( targetURL ) {
   return xmlHttp.responseText;
 }
 
-function getCrimeAndRent( regionName ) {
-  localCrime = -1;
-  myData.forEach( function( neighborhood, count ) {
-    if ( neighborhood.RegionName === regionName ) {
-      localCrime = parseFloat( neighborhood.ViolentCrimePer10kCapita );
-      localRent = parseFloat( neighborhood.AvgRentPrice );
-      return ( {
-        crime: localCrime,
-        rent: localRent
-      } );
-    }
-  } );
-}
-
-function setReadout( innerHTML ) {
-  document
-    .getElementById( "readout" )
-    .innerHTML = innerHTML;
-}
 
 function recenter( newCenter ) {
   map.panTo( newCenter );
 }
 
-function setDisplayMode() {
-  displayMode = displayMode == 'crime' ? 'rent' : 'crime';
+
+// Shows the current active displaymode on the navbar
+function setDisplayMode( newDisplayMode ) {
+  displayMode = newDisplayMode;
   document.getElementById( "displayMode" )
-    .innerHTML = displayMode;
+    .innerHTML = "Showing: "+displayMode;
   setNeighborhoodColors();
 }
 
+
+// Set all neighborhood polygon colors appropriately
 function setNeighborhoodColors() {
-  // Set the neighborhood polygon styles appropriately
+  console.log("setNeighborhoodColors()");
   map.data.forEach( function( feature ) {
+    // The name is the key in the quickLookup hash
     var key = feature.getProperty( 'NAME' );
-    //console.log( key );
     if ( quickLookup[ key ] ) {
       localCrime = quickLookup[ key ].crime;
       localRent = quickLookup[ key ].rent;
       map.data.overrideStyle( feature, {
-        fillColor: displayMode == 'crime' ? interpolateToHex( localCrime / maxCrime ) : interpolateToHex( localRent / maxRent ),
+        fillColor: getFillColor( displayMode ),        
         fillOpacity: .7
       } );
     } else {
       map.data.remove( feature );
+      console.log("removed feature ", feature.getProperty('NAME'));
     }
   } );
+}// End setNeighborhoodColors
+
+
+// Get the correctly interpolated color for the neighborhood poly
+function getFillColor( currentDisplayMode ) {
+  // var selectableDisplayModes = {
+  //   'Crime':     interpolateToHex( localCrime / maxCrime ),
+  //   'Rent':      interpolateToHex( localRent / maxRent ),
+  //   'Composite': interpolateToHex( getCompositeScore( localCrime, localRent ) ),
+  //   'Special':   interpolateToHex( getSpecialScore( localCrime, localRent ) )
+  // };
+  // return selectableDisplayModes[ currentDisplayMode ];
+
+  switch ( currentDisplayMode ) {
+    case 'Crime':
+      return interpolateToHex( localCrime / maxCrime );
+    case 'Rent':
+    console.log(localRent / maxRent);
+      return interpolateToHex( localRent / maxRent );
+    case 'Composite':
+    console.log(getCompositeScore( localCrime, localRent ) );
+      return interpolateToHex( getCompositeScore( localCrime, localRent ) );
+    case 'Special':
+      return interpolateToHex( getSpecialScore( localCrime, localRent ) );
+  }
 }
 
+
+// Calculate the composite score
+function getCompositeScore() {
+  localCrimeNormalized = localCrime / maxCrime;
+  localRentNormalized = localRent / maxRent;
+  return Math.pow( localCrimeNormalized * localCrimeNormalized + 
+    localRentNormalized * localRentNormalized, .5 );
+}
+
+
+// Calculate the special score
+function getSpecialScore( feat1, feat2 ) {
+  var medianRent, medianCrime;
+  medianRent = allRent.sort( function( a, b ){ return b-a })[ allRent.length / 2 ];
+  medianCrime = allCrime.sort(function( a, b ){ return b-a })[ allCrime.length / 2 ];
+  var medianVector = Math.pow(medianRent * medianRent + medianCrime * medianCrime,.5)
+  var localVector = Math.pow(Math.pow(localCrime,4.2)  + localRent * localRent,.5);
+  var maxVector = Math.pow(maxCrime * maxCrime + maxRent * maxRent,.5);
+  var result = Math.abs( (medianVector - localVector) / (medianVector - maxVector) );
+  //console.log(result);
+  return result;
+}
+
+// Call initialize as soon as the window finishes loading
 google.maps.event.addDomListener( window, 'load', initialize );
