@@ -14,6 +14,7 @@ Neighborhood.create!(
 
 Neighborhood.last.geo
 Neighborhood.last.save
+sleep rand(500)
 
 
 puts Neighborhood.last.RegionName

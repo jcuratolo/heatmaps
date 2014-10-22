@@ -22,7 +22,7 @@ var map,
 
 
 // Get rent and crime from the our DB JSON endpoint
-var endpoint = "http://http://dry-oasis-8572.herokuapp.com/neighborhoods.json";
+var endpoint = "http://dry-oasis-8572.herokuapp.com/neighborhoods.json";
 myData = httpGet( endpoint );
 //myData = httpGet( "http://localhost:3000/neighborhoods.json" );
 myData = JSON.parse( myData );
